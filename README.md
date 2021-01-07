@@ -10,21 +10,21 @@ When creating a B2B app or more broadly an app where multiple users are split ac
 ## How to use?
 ### Create public and schema-specific migrations
 The migrate binary can be used to create your migrations. The output directory is defined in cmd/migrate/main, as the variable `const directory = "/migrations"`. Usage is shown below.
-``
+```
   $ ./cmd/migrate/migrate -h
     Usage of ./cmd/migrate/migrate:
       -isPublic
           set true if this migration is ran at the public level
       -name string
           the name of the migration (only lowercase and underscore)
-``
+```
 
 ### How to migrate up and down
 
 
 Use `CreateMigrator(hostName, port, database, user, password string, lg *log.Logger) (*Migrator, error)` in `migrator.go`. Migrator then exposes the following API.
 
-``
+```
 // Public API
 MigratePublicUpToLatest(ctx context.Context) error 
 MigratePublicUpToDateString(ctx context.Context, dateString string) error 
@@ -36,7 +36,7 @@ MigrateSchemaUpToLatest(ctx context.Context, schema string) error
 MigrateSchemaUpToDateString(ctx context.Context, schema string, dateString string) error 
 MigrateSchemaDownFully(ctx context.Context, schema string) error 
 MigrateSchemaDownToDateString(ctx context.Context, schema string, dateString string) error
-``
+```
 
 To summarize the functionality, for public and schema level migrations, Migrator lets you migrate up to the latest migration, up to a specific datestring, down to a specific date string, for down fully (undoing every migration including the first).
 
